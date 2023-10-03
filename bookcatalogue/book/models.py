@@ -32,11 +32,15 @@ class User(AbstractUser):
 
 class Author(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    author_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     
     def __str__(self) -> str:
-        return self.author_name
+        return f'{self.first_name} {self.last_name}'
 
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
 class Genre(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

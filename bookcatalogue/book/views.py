@@ -13,7 +13,7 @@ class BookListView(ListView):
     paginate_by = 10 # Для пагинации на 10 книг на страницу
     
     def get_queryset(self) -> QuerySet[Any]:
-        queryset = Book.objects.all()
+        queryset = Book.objects.select_related('genre', 'author').all()
         
         # Фильтрация по жанру
         genre = self.request.GET.get('genre')

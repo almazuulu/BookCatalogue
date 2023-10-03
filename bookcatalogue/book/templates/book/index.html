@@ -38,47 +38,22 @@
 <hr>
 
 <div class="row">
-    <!-- Книга 1 -->
+    
+    {% for book in books %}
     <div class="col-md-4">
         <div class="card mb-4">
             <div class="card-body">
-                <h5 class="card-title">Название: Война и мир</h5>
-                <p class="card-text">Жанр: Роман</p>
-                <p class="card-text">Автор: Лев Толстой</p>
-                <p class="card-text">Средний рейтинг: 4.7</p>
+                <h5 class="card-title">Название: {{ book.title }}</h5>
+                <p class="card-text">Жанр: {{ book.genre }}</p>
+                <p class="card-text">Автор: {{ book.author }}</p>
+                <p class="card-text">Средний рейтинг: {{ book.average_rating }}</p>
                 <p class="card-text"><small class="text-muted">В избранном</small></p>
                 <a href="#" class="btn btn-primary">Подробнее</a>
             </div>
         </div>
     </div>
-
-    <!-- Книга 2 -->
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Название: Преступление и наказание</h5>
-                <p class="card-text">Жанр: Роман</p>
-                <p class="card-text">Автор: Федор Достоевский</p>
-                <p class="card-text">Средний рейтинг: 4.8</p>
-                <a href="#" class="btn btn-primary">Подробнее</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Книга 3 -->
-    <div class="col-md-4">
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">Название: Гарри Поттер и философский камень</h5>
-                <p class="card-text">Жанр: Фантастика</p>
-                <p class="card-text">Автор: Джоан Роулинг</p>
-                <p class="card-text">Средний рейтинг: 5.0</p>
-                <a href="#" class="btn btn-primary">Подробнее</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- и так далее для остальных книг -->
+    {% endfor %}
+    
 </div>
 {% endblock %}
 

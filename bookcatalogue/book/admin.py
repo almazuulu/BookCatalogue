@@ -7,12 +7,13 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ['username', 'email']
     filter_horizontal = ['favorites', 'groups', 'user_permissions']
 
+
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = ['author_name']
-    search_fields = ['author_name']
+    list_display = ['full_name']
+    search_fields = ['first_name', 'last_name']
 
-
+    
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     list_display = ['genre_name']
