@@ -1,34 +1,36 @@
-from typing import Any
-from django.db.models.query import QuerySet
-from django.shortcuts import render
-from django.views.generic import ListView 
+from django.db.models import Q
+from django.views.generic import ListView
+from .models import Book, Genre, Author
 
-
-from .models import Book, Genre, Author 
-
-class BookListView(ListView): 
+class BookListView(ListView):
     model = Book
-    template_name = 'book/index.html'
+    template_name = 'book/index.html'  # укажите имя вашего шаблона, если оно отличается
     context_object_name = 'books'
-    paginate_by = 10 # Для пагинации на 10 книг на страницу
-    
-    def get_queryset(self) -> QuerySet[Any]:
-        queryset = Book.objects.select_related('genre', 'author').all()
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
         
-        # Фильтрация по жанру
+        # Используем select_related для FK отношений
+        queryset = queryset.select_related('genre', 'author')
+        
         genre = self.request.GET.get('genre')
-        if genre:
-            queryset = queryset.filter(genre__genre_name=genre)
-        
-        # Фильтрация по автору
         author = self.request.GET.get('author')
-        if author:
-            queryset = queryset.filter(author__author_name=author)
-        
-        # Фильтрация по датам
         date_from = self.request.GET.get('date_from')
         date_to = self.request.GET.get('date_to')
-        if date_from and date_to:
-            queryset = queryset.filter(publish_date__range=[date_from, date_to])
+
+        if genre:
+            queryset = queryset.filter(genre_id=genre)
+        if author:
+            queryset = queryset.filter(author_id=author)
+        if date_from:
+            queryset = queryset.filter(publish_date__gte=date_from)
+        if date_to:
+            queryset = queryset.filter(publish_date__lte=date_to)
 
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['genres'] = Genre.objects.all()
+        context['authors'] = Author.objects.all()
+        return context

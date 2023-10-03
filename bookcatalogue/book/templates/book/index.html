@@ -2,25 +2,24 @@
 {% load static %}
 {% block title %} Главная страница {% endblock %}
 {% block content %}
-<form>
+<form method="GET" action="">
     <div class="row">
         <div class="col-md-3">
             <label for="genre">Жанр</label>
             <select class="form-control" id="genre" name="genre">
                 <option value="">Выберите жанр</option>
-                <option value="1">Фантастика</option>
-                <option value="2">Детектив</option>
-                <option value="3">Роман</option>
+                {% for genre in genres %}
+                    <option value="{{ genre.id }}">{{ genre.genre_name }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="col-md-3">
             <label for="author">Автор</label>
             <select class="form-control" id="author" name="author">
                 <option value="">Выберите автора</option>
-                <option value="1">Лев Толстой</option>
-                <option value="2">Федор Достоевский</option>
-                <option value="3">Джоан Роулинг</option>
-                <!-- и так далее -->
+                {% for author in authors %}
+                    <option value="{{ author.id }}">{{ author.full_name }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="col-md-3">
@@ -32,7 +31,7 @@
             <input type="date" class="form-control" id="date_to" name="date_to">
         </div>
     </div>
-    <button type="submit" class="btn btn-primary mt-3">Фильтровать</button>
+    <button type="submit" class="btn btn-primary mt-3" data-ajax onclick="filterBooks()">Фильтровать</button>
 </form>
 
 <hr>
