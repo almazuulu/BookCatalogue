@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-=0-fol2!trhmiz)igpm4l0tud-_bqx*vq-=7)w7^%14a7@$s0u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,11 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Installed Apps
     'rest_framework',
+    'widget_tweaks',
+    'allauth',
+    'allauth.account',
     
     # Apps
+    'users.apps.UsersConfig',
     'book.apps.BookConfig',
     'api.apps.ApiConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -53,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'bookcatalogue.urls'
@@ -134,3 +142,24 @@ MEDIA_URL = "/media/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_VERIFICATION = 'none' 
+
+AUTH_USER_MODEL = 'users.BookUser'
+
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailBackend',  # замените "users" на имя вашего приложения, если оно отличается
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = 'almazuulu@gmail.com'
+EMAIL_HOST_USER = 'almazuulu@gmail.com'
+EMAIL_HOST_PASSWORD = 'ayexqvfpcrktakdb'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+

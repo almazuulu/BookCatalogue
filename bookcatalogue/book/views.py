@@ -1,10 +1,10 @@
 from django.db.models import Q
-from django.views.generic import ListView
+from django.views import generic
 from .models import Book, Genre, Author
 
-class BookListView(ListView):
+class BookListView(generic.ListView):
     model = Book
-    template_name = 'book/index.html'  # укажите имя вашего шаблона, если оно отличается
+    template_name = 'book/index.html' 
     context_object_name = 'books'
 
     def get_queryset(self):
@@ -34,3 +34,8 @@ class BookListView(ListView):
         context['genres'] = Genre.objects.all()
         context['authors'] = Author.objects.all()
         return context
+    
+
+class BookDetailView(generic.DetailView):
+    model = Book
+    template_name = 'book/book_detail.html'

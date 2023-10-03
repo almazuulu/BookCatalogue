@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ book.title }}</h2>
+    <p><strong>Жанр:</strong> {{ book.genre }}</p>
+    <p><strong>Автор:</strong> {{ book.author.full_name }}</p>
+    <p><strong>Описание:</strong> {{ book.description }}</p>
+    <p><strong>Дата публикации:</strong> {{ book.publish_date }}</p>
+    <p><strong>Средний рейтинг:</strong> {{ book.average_rating }}</p>
+
+    <h4>Отзывы</h4>
+    <ul class="list-group">
+        {% for review in book.reviews.all %}
+        <li class="list-group-item">
+            <strong>{{ review.user.username }}</strong>: {{ review.text }} (Рейтинг: {{ review.rating }})
+        </li>
+        {% empty %}
+        <li class="list-group-item">Пока нет отзывов для этой книги.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -3,6 +3,9 @@
 import os
 import sys
 
+import certifi
+
+os.environ['SSL_CERT_FILE'] = certifi.where()
 
 def main():
     """Run administrative tasks."""

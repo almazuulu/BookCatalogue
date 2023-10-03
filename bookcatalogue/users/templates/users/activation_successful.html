@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Успешно!</h4>
+        <p>Ваш аккаунт был успешно активирован. Теперь вы можете войти на сайт используя свои учетные данные.</p>
+        <hr>
+        <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+    </div>
+</div>
+{% endblock %}
