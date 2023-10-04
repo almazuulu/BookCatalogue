@@ -2,6 +2,9 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action, authentication_classes, permission_classes
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 from book.models import Book, FavoriteBook, Review
 from .serializers import BookSerializer, ReviewSerializer
 
@@ -29,6 +32,8 @@ class BookViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retriev
         return queryset
 
     @action(detail=True, methods=['POST'])
+    @authentication_classes([JSONWebTokenAuthentication])
+    @permission_classes([IsAuthenticated])
     def add_review(self, request, *args, **kwargs):
         book = self.get_object()
         serializer = ReviewSerializer(data=request.data)
@@ -38,6 +43,8 @@ class BookViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retriev
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['POST'])
+    @authentication_classes([JSONWebTokenAuthentication])
+    @permission_classes([IsAuthenticated])
     def toggle_favorite(self, request, *args, **kwargs):
         book = self.get_object()
         favorite, created = FavoriteBook.objects.get_or_create(user=request.user, book=book)

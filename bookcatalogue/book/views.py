@@ -48,9 +48,7 @@ class BookListView(generic.ListView):
         
         return context
     
-    
 
-    
 class BookDetailView(generic.DetailView):
     model = Book
     template_name = 'book/book_detail.html'
@@ -80,7 +78,6 @@ class BookDetailView(generic.DetailView):
             context['review_form'] = review_form
             return self.render_to_response(context)
     
-
 
 @login_required
 def add_to_favorite(request, book_id):
