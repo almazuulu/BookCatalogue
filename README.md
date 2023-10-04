@@ -50,7 +50,7 @@
 ## Скриншоты
 
 ### WEB     
-![Главная страница](screenshots/homepage.png)
+![Главная страница](bookcatalogue/screenshots/homepage.png)
 
 ## Установка и запуск
 
