@@ -54,5 +54,17 @@
     {% endfor %}
     
 </div>
+
+{% for book in books %}
+    <div>
+        {{ book.title }}
+        {% if book.is_favorite %}
+            <span>В избранном</span>
+            <a href="{% url 'remove_from_favorites' book.id %}">Удалить из избранного</a>
+        {% else %}
+            <a href="{% url 'add_to_favorites' book.id %}">Добавить в избранное</a>
+        {% endif %}
+    </div>
+{% endfor %}
 {% endblock %}
 

@@ -148,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ACCOUNT_UNIQUE_EMAIL = True
 # ACCOUNT_EMAIL_VERIFICATION = 'none' 
 
-AUTH_USER_MODEL = 'users.BookUser'
+# AUTH_USER_MODEL = 'book.BookUser'
 
 AUTHENTICATION_BACKENDS = [
     'users.backends.EmailBackend',  # замените "users" на имя вашего приложения, если оно отличается
