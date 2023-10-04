@@ -1,6 +1,6 @@
 from rest_framework import viewsets, mixins, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.decorators import action, authentication_classes, permission_classes
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
@@ -43,7 +43,7 @@ class BookViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.Retriev
 
     @action(detail=True, methods=['POST'])
     @authentication_classes([JSONWebTokenAuthentication])
-    @permission_classes([IsAuthenticated])
+    @permission_classes([IsAuthenticatedOrReadOnly])
     def toggle_favorite_status(self, request, *args, **kwargs):
         book = self.get_object()
         favorite, created = FavoriteBook.objects.get_or_create(user=request.user, book=book)

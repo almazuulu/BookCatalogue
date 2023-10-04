@@ -33,6 +33,7 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/token-auth/', obtain_jwt_token),
     path('api/token-refresh/', refresh_jwt_token),
+    path('api-auth/vote', include('rest_framework.urls')),
 ]
 
 if settings.DEBUG:

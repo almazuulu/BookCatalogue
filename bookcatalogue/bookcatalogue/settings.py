@@ -166,3 +166,11 @@ EMAIL_USE_TLS = True
 
 LOGIN_REDIRECT_URL = 'home'
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+}
+
+
