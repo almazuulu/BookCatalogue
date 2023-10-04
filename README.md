@@ -121,6 +121,14 @@ pip install -r requirements.txt
 python manage.py migrate
 \```
 
+4.1. **Опционально после команды migrate можете запустить**:
+\```
+python manage.py loaddata data.json
+\```
+
+admin: almazuulu@gmail.com
+password: qwerty1234$
+
 5. **Запуск сервера**:
 \```
 python manage.py runserver
