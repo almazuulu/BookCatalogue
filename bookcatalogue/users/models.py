@@ -6,6 +6,9 @@ class BookUser(AbstractUser):
     email = models.EmailField(unique=True)
     favorites = models.ManyToManyField('book.Book', related_name='users_favorited')
     
+        # Use email for authentication instead of usernames
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
     # Переопределение связанных полей
     groups = models.ManyToManyField(
         Group,

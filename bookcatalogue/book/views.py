@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.views import generic
-from .models import Book, Genre, Author, FavoriteBook
+from .models import Book, Genre, Author
 from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
@@ -31,13 +31,7 @@ class BookListView(generic.ListView):
             queryset = queryset.filter(publish_date__gte=date_from)
         if date_to:
             queryset = queryset.filter(publish_date__lte=date_to)
-            
-        # Если пользователь авторизован, добавляем информацию о избранном
-        if self.request.user.is_authenticated:
-            favorite_books = set(FavoriteBook.objects.filter(user=self.request.user).values_list('book_id', flat=True))
-            for book in queryset:
-                book.is_favorite = book.id in favorite_books
-
+        
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -46,14 +40,11 @@ class BookListView(generic.ListView):
         context['authors'] = Author.objects.all()
         return context
     
-
 class BookDetailView(generic.DetailView):
     model = Book
     template_name = 'book/book_detail.html'
     
     
-
-
 @login_required
 @require_POST
 def add_to_favorites(request, book_id):

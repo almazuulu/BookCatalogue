@@ -1,56 +1,26 @@
+from django.conf import settings
+from django.contrib.auth.tokens import default_token_generator
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView, LogoutView
+from django.core.mail import send_mail
+from django.shortcuts import redirect, render   
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.views import View
 from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes
-from django.core.mail import send_mail
-from django.conf import settings
-from django.utils.encoding import force_str
-from django.contrib.auth import login, authenticate
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 
-from .forms import RegistrationForm, LoginForm
+# Локальные импорты
+from .forms import EmailAuthenticationForm, RegistrationForm
 from .models import BookUser
-from django.contrib.auth.views import LoginView
 
-from django.contrib.auth.views import LoginView
-from django.contrib.auth import views as auth_views
-from django.views import generic
-from django.urls import reverse_lazy
-
-class LoginView(View):
-    def get(self, request):
-        form = LoginForm()
-        return render(request, 'users/login.html', {'form': form})
-
-    def post(self, request):
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            user = form.cleaned_data["user"]
-            login(request, user)
-            return redirect('home')
-        return render(request, 'users/login.html', {'form': form})
 
 class EmailLoginView(LoginView):
-    template_name = 'your_app/login.html'  # Specify your login template
-    authentication_form = LoginForm
-
-    def form_valid(self, form):
-        remember_me = form.cleaned_data.get('remember_me')
-        if not remember_me:
-            self.request.session.set_expiry(0)
-
-        # Access the authenticated user and their email
-        if self.request.user.is_authenticated:
-            user = self.request.user
-            email = user.email
-            # You can now use 'user' and 'email' as needed in your view
-
-        return super().form_valid(form)
-
+    form_class = EmailAuthenticationForm
+    template_name = 'users/login.html'
+    
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('login')
 
 class RegisterView(View):
     def get(self, request):
@@ -61,7 +31,9 @@ class RegisterView(View):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False  # Deactivate account till it is confirmed
+            user.username = form.cleaned_data['email']  # Используйте email как значение для username
+            user.set_password(form.cleaned_data['password1'])  # Установите пароль
+            user.is_active = False
             user.save()
 
             # Generate email confirmation token
