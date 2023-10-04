@@ -46,7 +46,13 @@
                 <p class="card-text">Жанр: {{ book.genre }}</p>
                 <p class="card-text">Автор: {{ book.author }}</p>
                 <p class="card-text">Средний рейтинг: {{ book.average_rating }}</p>
-                <p class="card-text"><small class="text-muted">В избранном</small></p>
+                {% if book.id in favorite_books %}
+                <p class="card-text">
+                    <small class="text-muted">В избранном</small>
+                </p>
+                {% endif %}
+                
+                
                 <a href="{% url 'book_detail' book.pk %}" class="btn btn-primary">Подробнее</a>
             </div>
         </div>
@@ -54,17 +60,8 @@
     {% endfor %}
     
 </div>
-
-{% for book in books %}
-    <div>
-        {{ book.title }}
-        {% if book.is_favorite %}
-            <span>В избранном</span>
-            <a href="{% url 'remove_from_favorites' book.id %}">Удалить из избранного</a>
-        {% else %}
-            <a href="{% url 'add_to_favorites' book.id %}">Добавить в избранное</a>
-        {% endif %}
-    </div>
-{% endfor %}
+{% if book.id in favorite_books %}
+        <span>This book is in your favorites!</span>
+{% endif %}
 {% endblock %}
 

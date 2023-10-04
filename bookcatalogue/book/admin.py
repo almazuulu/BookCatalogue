@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Book, Genre, Review
+from .models import Author, Book, Genre, Review, FavoriteBook
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
@@ -24,3 +24,6 @@ class BookAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ['book', 'user', 'rating']
     search_fields = ['name']
+
+
+admin.site.register(FavoriteBook)

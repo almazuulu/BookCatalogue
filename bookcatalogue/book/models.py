@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from users.models import BookUser
 from django.contrib.auth.models import User
+from django.conf import settings
 
 class Author(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -49,4 +50,10 @@ class Review(models.Model):
     def __str__(self) -> str:
         return f'Rating for {self.book}'
     
-
+class FavoriteBook(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return f'{self.book} в избранном у {self.user}'
