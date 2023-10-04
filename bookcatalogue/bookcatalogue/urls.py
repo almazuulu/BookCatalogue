@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -31,8 +31,8 @@ urlpatterns = [
     path('user/', include('users.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('api/token-auth/', obtain_jwt_token),
-    path('api/token-refresh/', refresh_jwt_token),
+    path('api/token-auth/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token-refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api-auth/vote', include('rest_framework.urls')),
 ]
 

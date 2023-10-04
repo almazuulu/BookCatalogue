@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'widget_tweaks',
     'drf_yasg',
-   
+    'certifi',
+
     
     # Apps
     'users.apps.UsersConfig',
