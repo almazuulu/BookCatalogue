@@ -12,6 +12,7 @@ django-templated-mail==1.1.1
 django-user-accounts==3.3.1
 django-widget-tweaks==1.5.0
 djangorestframework==3.14.0
+djangorestframework-jwt==1.11.0
 djangorestframework-simplejwt==5.3.0
 djoser==2.2.0
 drf-yasg==1.21.7
