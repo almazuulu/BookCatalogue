@@ -49,8 +49,47 @@
 
 ## Скриншоты
 
-### WEB     
+### WEB   
+Главная страница  
 ![Главная страница](bookcatalogue/screenshots/homepage.png)
+
+- Детальная страница книги - Информация, Комментарии, Рейтинги, Оставление отзыва, Добавление в избранное 
+![Детали книги](bookcatalogue/screenshots/detail_page.png)
+
+- Добавление в избранное
+![Добавление в избранное](bookcatalogue/screenshots/detail_page_unsave.png)
+
+- Избранное на главной странице
+![Избранное на главной странице](bookcatalogue/screenshots/saved_books.png)
+
+- Авторизация по почте:
+![Авторизация 1](bookcatalogue/screenshots/mail_author1.png)
+
+- Регистрация по почте:
+![Регистрация по почте](bookcatalogue/screenshots/registration.png)
+
+- Отправка письма подтв. на почту:
+![Отправка письма подтв](bookcatalogue/screenshots/email_conf_send.png)
+
+- Получение письма:
+![Получение письма](bookcatalogue/screenshots/email_get.png)
+
+- Активация аккаунта:
+![Получение письма](bookcatalogue/screenshots/activate_account.png)
+
+
+# API (начало всех URL: `localhost:8000/api/`)
+
+- api/books/
+![API Books](bookcatalogue/screenshots/api_books.png)
+
+- Swagger документация
+![Swagger документация](bookcatalogue/screenshots/api_swagger.png)
+![Swagger документация 2](bookcatalogue/screenshots/api_swagger_example1.png)
+![Swagger документация 3](bookcatalogue/screenshots/api_swagger_example2.png)
+a
+- Redoc документация
+![Redoc документация](bookcatalogue/screenshots/api_redoc.png)
 
 ## Установка и запуск
 
