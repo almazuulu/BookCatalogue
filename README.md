@@ -56,6 +56,9 @@
 - Детальная страница книги - Информация, Комментарии, Рейтинги, Оставление отзыва, Добавление в избранное 
 ![Детали книги](bookcatalogue/screenshots/detail_page.png)
 
+- Фильтрация книги
+![Фильтрация книги](bookcatalogue/screenshots/filter_book.png)
+
 - Добавление в избранное
 ![Добавление в избранное](bookcatalogue/screenshots/detail_page_unsave.png)
 
