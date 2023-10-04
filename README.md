@@ -98,13 +98,13 @@ a
 
 1. **Клонирование репозитория**:
 
-\```bash
+\```
 git clone https://github.com/almazuulu/BookCatalogue.git
 cd bookcatalogue
 \```
 
 2. **Установка виртуального окружения** (опционально, но рекомендуется):
-\```bash
+\```
 python -m venv venv
 source venv/bin/activate  # для Linux/macOS
 # или
@@ -112,27 +112,27 @@ venv\Scripts\activate     # для Windows
 \```
 
 3. **Установка зависимостей**:
-\```bash
+\```
 pip install -r requirements.txt
 \```
 
 4. **Применение миграций**:
-\```bash
+\```
 python manage.py migrate
 \```
 
 5. **Запуск сервера**:
-\```bash
+\```
 python manage.py runserver
 \```
 
 6. **Создание суперпользователя (для доступа к админ-панели)**:
-\```bash
+\```
 python manage.py createsuperuser
 \```
 
 7. **Запуск сервера**:
-\```bash
+\```
 python manage.py runserver
 \```
 
