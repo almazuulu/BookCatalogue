@@ -1,11 +1,12 @@
 from django.db.models import Q
 from django.views import generic
-from .models import Book, Genre, Author, FavoriteBook
+from .models import Book, Genre, Author, FavoriteBook, Review
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST 
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from .forms import ReviewForm
 
 
 class BookListView(generic.ListView):
@@ -46,6 +47,8 @@ class BookListView(generic.ListView):
             context['favorite_books'] = favorite_books
         
         return context
+    
+    
 
     
 class BookDetailView(generic.DetailView):
@@ -56,7 +59,26 @@ class BookDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
             context['is_favorited'] = FavoriteBook.objects.filter(user=self.request.user, book=self.object).exists()
+        context['reviews'] = Review.objects.filter(book=self.object)
+        context['review_form'] = ReviewForm()
+
         return context
+    
+    def post(self, request, *args, **kwargs):
+        book = self.get_object()
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            # Создайте новый отзыв, связанный с текущей книгой и текущим пользователем
+            review = review_form.save(commit=False)
+            review.book = book
+            review.user = request.user
+            review.save()
+            return redirect('book_detail', pk=book.pk)
+        else:
+            # Если форма недействительна, повторно отобразите страницу с ошибками
+            context = self.get_context_data()
+            context['review_form'] = review_form
+            return self.render_to_response(context)
     
 
 

@@ -48,11 +48,11 @@
                 <p class="card-text">Средний рейтинг: {{ book.average_rating }}</p>
                 {% if book.id in favorite_books %}
                 <p class="card-text">
-                    <small class="text-muted">В избранном</small>
+                    <small class="text-white bg-success p-1">В избранном</small>
                 </p>
                 {% endif %}
                 
-                
+
                 <a href="{% url 'book_detail' book.pk %}" class="btn btn-primary">Подробнее</a>
             </div>
         </div>
