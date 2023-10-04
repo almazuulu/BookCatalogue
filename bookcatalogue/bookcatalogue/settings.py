@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # Installed Apps
     'rest_framework',
     'widget_tweaks',
+    'drf_yasg',
    
     
     # Apps
