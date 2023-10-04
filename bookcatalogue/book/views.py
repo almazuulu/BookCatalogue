@@ -41,7 +41,8 @@ class BookListView(generic.ListView):
         context['authors'] = Author.objects.all()
         
         if self.request.user.is_authenticated:
-            favorite_books = set(self.request.user.favorites.values_list('id', flat=True))
+            # Получить список книг, находящихся в избранном для текущего пользователя
+            favorite_books = set(FavoriteBook.objects.filter(user=self.request.user).values_list('book_id', flat=True))
             context['favorite_books'] = favorite_books
         
         return context
